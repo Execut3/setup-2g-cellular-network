@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  osmo-bsc:
+    image: osmocom-2g
+    command: osmo-bsc -c /app/configs/osmo-bsc.cfg
+    volumes:
+      - ./configs:/app/configs
+    privileged: true
+    network_mode: "host"
+
+  osmo-bts-trx:
+    image: osmocom-2g
+    command: osmo-bts-trx -c /app/configs/osmo-bts.cfg
+    volumes:
+      - ./configs:/app/configs
+      - /dev/bus/usb:/dev/bus/usb
+      - /usr/local/share/uhd/images/:/usr/share/uhd/
+    privileged: true
+    network_mode: "host"
+
+  osmo-trx-uhd:
+    image: osmocom-2g
+    command: osmo-trx-uhd -C /app/configs/osmo-trx-uhd.cfg
+    volumes:
+      - ./configs:/app/configs
+      - /dev/bus/usb:/dev/bus/usb
+      - /usr/local/share/uhd/images/:/usr/share/uhd/
+    privileged: true
+    network_mode: "host"
+
+  osmo-mgw:
+    image: osmocom-2g
+    command: osmo-mgw -c /app/configs/osmo-mgw.cfg
+    volumes:
+      - ./configs:/app/configs
+    network_mode: "host"
+
+  osmo-hlr:
+    image: osmocom-2g
+    command: osmo-hlr -c /app/configs/osmo-hlr.cfg -l /app/configs/hlr.db
+    volumes:
+      - ./configs:/app/configs
+    network_mode: "host"
+
+  osmo-msc:
+    image: osmocom-2g
+    command: osmo-msc -c /app/configs/osmo-msc.cfg
+    volumes:
+      - ./configs:/app/configs
+    network_mode: "host"
+
+  osmo-stp:
+    image: osmocom-2g
+    command: osmo-stp -c /app/configs/osmo-stp.cfg
+    volumes:
+      - ./configs:/app/configs
+    network_mode: "host"
