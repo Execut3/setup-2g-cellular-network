@@ -20,3 +20,13 @@ To setup this lab we need to do the following steps:
 
 ### Setup Osmocom
 
+Change directory to `osmocom` folder and run following commands:
+```bash
+docker build --network host -t osmocom-2g .
+```
+And then
+```bash
+docker-compose up 
+```
+
+This will setup a 2g network and connect to b210 SDR on MCC=901 and MNC=71
